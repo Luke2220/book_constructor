@@ -1,3 +1,26 @@
 <html>
-    <script src="book_constructor.js"></script>
-</html>>
+    <head>
+        <meta charset="UTF-8">
+        <script src="book_constructor.js"></script>
+        <link rel='stylesheet' href='book_libaray.css'>
+        <title>Book Libaray</title>
+    </head>
+
+    <body>
+        <section class='book-list'>
+            <section class='add-book'>
+                <button ></button>
+                <div>
+                    <form name='book-form' onsubmit="addBookToLibaray()">
+                        Title: <input type="text" name='title'>
+                        Author:<input type="text" name='author'>
+                        Amount of Pages:<input type="text" name='page-count'>
+                        Read: <input type="radio" name='is-read' value='true'>
+                        Not Read:<input type="radio" name='is-read' value='false'>
+                        <input type="submit" value="Add">
+                    </form>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>
