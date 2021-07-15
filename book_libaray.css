@@ -1,0 +1,17 @@
+.book-list{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.book-card{
+    min-width: 125px;
+    min-height: 200px;
+    background-color: rgba(0, 255, 255, 0.493);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    flex-direction: column;
+
+}

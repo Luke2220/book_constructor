@@ -1,4 +1,8 @@
 let ourBooks = [];
+var addButton = document.querySelector('.book-submit')
+addButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    addBookToLibaray()});
 
 function book(title, author, pages, is_read)
 {
@@ -8,14 +12,14 @@ function book(title, author, pages, is_read)
     this.read = false
     if (is_read == true)
     {
-        this.read = 'true'
+        this.read = 'read'
     }else
     {
-        this.read = "false"
+        this.read = "Not read yet"
     }
 
     this.info = function(){
-        return `${title}, ${author}, ${pages}, ${this.read}`
+        return `${title}, ${author}, ${pages} pages, ${this.read}`
     }
 }
 
@@ -28,15 +32,24 @@ function addBookToLibaray(){
     
     var newBook = new book(title, author, pageCount, read);
     ourBooks.push(newBook);
-    var bookList = document.getElementsByClassName('book-list')[0];
+
+    var bookList = document.querySelector('.book-list');
     var div = document.createElement('div');
+    div.classList.add('book-card');
 
+    newBook.info().split(',').forEach((info) => {createBookCard(div, info)});
+
+    
+      
+  
+    bookList.appendChild(div);
+}
+
+function createBookCard(div, info){
     var p = document.createElement('p');
-    p.innerHTML = newBook.info();
-    console.log(newBook.info())
-    div.append(p);
+    p.textContent = info;
+    div.appendChild(p);
 
-    bookList.append(div)
 }
 
 
