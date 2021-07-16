@@ -4,6 +4,10 @@ addButton.addEventListener('click', (e) => {
     e.preventDefault();
     addBookToLibaray()});
 
+var addButton = document.querySelector('.add-book')
+addButton.addEventListener('click', () => {
+    toggleBookForm()});
+
 function book(title, author, pages, is_read)
 {
     this.title = title
@@ -25,31 +29,55 @@ function book(title, author, pages, is_read)
 
 
 function addBookToLibaray(){
-    var title = document.forms['book-form']['title'].value;
-    var author = document.forms['book-form']['author'].value;
-    var pageCount = document.forms['book-form']['page-count'].value;
-    var read = document.forms['book-form']['is-read'].value;
+    let title = document.forms['book-form']['title'].value;
+    let author = document.forms['book-form']['author'].value;
+    let pageCount = document.forms['book-form']['page-count'].value;
+    let read = document.forms['book-form']['is-read'].value;
     
-    var newBook = new book(title, author, pageCount, read);
+    let newBook = new book(title, author, pageCount, read);
     ourBooks.push(newBook);
+    var bookIndex = ourBooks.length - 1;
 
-    var bookList = document.querySelector('.book-list');
+    let bookList = document.querySelector('.book-list');
     var div = document.createElement('div');
     div.classList.add('book-card');
 
-    newBook.info().split(',').forEach((info) => {createBookCard(div, info)});
-
-    
-      
+    newBook.info().split(',').forEach((info) => {createBookCard(div, info)});    
   
+    let closeBtn = document.createElement('button');
+    closeBtn.classList.add('remove-btn');
+    closeBtn.textContent = 'Remove';
+    
+
+    div.appendChild(closeBtn);
+
+    div.setAttribute('book-index', bookIndex);
+
+    closeBtn.addEventListener('click', () => {removeBook(bookIndex, div)});
+
     bookList.appendChild(div);
 }
 
 function createBookCard(div, info){
-    var p = document.createElement('p');
+    let p = document.createElement('p');
     p.textContent = info;
     div.appendChild(p);
 
+}
+
+function toggleBookForm(){
+    let form = document.querySelector('.form-toggle');
+    if (form.style.display === "none")
+    {
+        form.style.display = 'block';
+    } else {
+        form.style.display = 'none';
+    }
+}
+
+function removeBook(bookIndex, div){
+    ourBooks.splice(bookIndex, bookIndex);
+    div.remove();
 }
 
 
