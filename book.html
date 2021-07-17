@@ -6,22 +6,22 @@
     </head>
 
     <body>
-            
+        <section class='book-form'>
+            <button class='add-book'>New Book</button>
+                <div class='form-toggle'>
+                    <form name='book-form' class='book-form'>
+                        Title: <input type="text" name='title'>
+                        Author:<input type="text" name='author'>
+                        Amount of Pages:<input type="text" name='page-count'>
+                        Read: <input type="radio" name='is-read' value='true'>
+                        Not Read:<input type="radio" name='is-read' value='false'>
+                        <button class='book-submit'>Add</button>
+                    </form>
+                </div>
+    </section>
         
         <section class='book-list'>
-            <section class='book-card'>
-                <button class='add-book'>New Book</button>
-                    <div class='form-toggle'>
-                        <form name='book-form' class='book-card'>
-                            Title: <input type="text" name='title'>
-                            Author:<input type="text" name='author'>
-                            Amount of Pages:<input type="text" name='page-count'>
-                            Read: <input type="radio" name='is-read' value='true'>
-                            Not Read:<input type="radio" name='is-read' value='false'>
-                            <button class='book-submit'>Add</button>
-                        </form>
-                    </div>
-        </section>
+            
         </section>
     </body>
     <script src="book_constructor.js"></script>
