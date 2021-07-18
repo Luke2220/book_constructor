@@ -2,12 +2,13 @@ let ourBooks = [];
 var submitButton = document.querySelector('.book-submit')
 submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    addBookToLibaray()});
+    getFormInfo()});
 
 var addButton = document.querySelector('.add-book')
 addButton.addEventListener('click', () => {
     toggleBookForm(addButton)});
     
+    window.onload = loadBookSaves;
 
 function book(title, author, pages, is_read)
 {
@@ -24,23 +25,30 @@ function book(title, author, pages, is_read)
         this.read = "Not read yet"
     }
     this.info = function(){
-        return `${title}, ${author}, ${pages} pages, ${this.read}`
+        return `${title}, ${author}, ${pages}, ${this.read}`
     }
 }
 
-
-function addBookToLibaray(){
+function getFormInfo(){
     let title = document.forms['book-form']['title'].value;
     let author = document.forms['book-form']['author'].value;
     let pageCount = document.forms['book-form']['page-count'].value;
     let read = document.forms['book-form']['is-read'].value;
-    let newBook = new book(title, author, pageCount, read);
+    addBookToLibrary(title,author,pageCount,read);
+    
+}
+
+function addBookToLibrary(_title, _author, _pageCount, _read){
+
+    let newBook = new book(_title, _author, _pageCount, _read);
     ourBooks.push(newBook);
     var bookIndex = ourBooks.length - 1;
 
     let bookList = document.querySelector('.book-list');
     var div = document.createElement('div');
-    div.classList.add('book-card');
+    div.classList.add('book-card', 'book-layout');
+
+    localStorage.setItem(bookIndex, newBook.info());
 
     newBook.info().split(',').forEach((info) => {createBookCard(div, info)});    
   
@@ -72,6 +80,19 @@ function createBookCard(div, info){
 
 }
 
+function loadBookSaves(){
+    let bookInfo = '';
+    let count = 0;
+    while (bookInfo != null){
+        bookInfo = localStorage.getItem(count);
+        if (bookInfo != null){
+            let infoArray = bookInfo.split(',');
+            addBookToLibrary(infoArray[0],infoArray[1],infoArray[2],infoArray[3]);
+        }
+        count++;
+    }
+}
+
 function toggleBookForm(addButton){
     let form = document.querySelector('.form-toggle');
     if (form.style.display === "none")
@@ -86,6 +107,8 @@ function toggleBookForm(addButton){
 
 function removeBook(bookIndex, div){
     ourBooks.splice(bookIndex, bookIndex);
+    localStorage.removeItem(bookIndex);
+    console.log(bookIndex);
     div.remove();
 }
 

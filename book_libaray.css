@@ -6,24 +6,23 @@
     gap: 10px;
 }
 
-.book-card{
-    min-width: 80%;
-    min-height: 100%;
-    background-color: rgba(0, 255, 255, 0.493);
+.book-layout{
     display:flex;
     flex-wrap:wrap;
     justify-content: center;
     flex-direction: column;
     text-align: center;
+}
+
+.book-card{
+    min-width: 80%;
+    min-height: 100%;
+    background-color: rgba(0, 255, 255, 0.493);
+  
 
 }
 
 .book-form{
     float:left;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
     max-width:20%;
 }
