@@ -16,7 +16,7 @@ function book(title, author, pages, is_read)
     this.author = author
     this.pages = pages
     this.read = 'read'
-    if (is_read == 'true')
+    if (is_read == 'read' || is_read == 'true')
     {
         this.read = 'read'
         
@@ -25,7 +25,7 @@ function book(title, author, pages, is_read)
         this.read = "Not read yet"
     }
     this.info = function(){
-        return `${title}, ${author}, ${pages}, ${this.read}`
+        return `${title},${author},${pages},${this.read}`
     }
 }
 
@@ -49,6 +49,18 @@ function addBookToLibrary(_title, _author, _pageCount, _read){
     div.classList.add('book-card', 'book-layout');
 
     localStorage.setItem(bookIndex, newBook.info());
+
+    console.log(bookIndex);
+  
+    let index = localStorage.getItem('highestIndex', bookIndex);
+    console.log(index);
+    if (index == null){
+        console.log(bookIndex);
+        localStorage.setItem('highestIndex', bookIndex);
+    } else if(index < bookIndex){
+        console.log(bookIndex);
+        localStorage.setItem('highestIndex', bookIndex);
+    }
 
     newBook.info().split(',').forEach((info) => {createBookCard(div, info)});    
   
@@ -83,14 +95,18 @@ function createBookCard(div, info){
 function loadBookSaves(){
     let bookInfo = '';
     let count = 0;
-    while (bookInfo != null){
+    let maxIndex = localStorage.getItem('highestIndex');
+    console.log(maxIndex);
+    while (count <= maxIndex){
         bookInfo = localStorage.getItem(count);
+        console.log(bookInfo, count);
         if (bookInfo != null){
             let infoArray = bookInfo.split(',');
             addBookToLibrary(infoArray[0],infoArray[1],infoArray[2],infoArray[3]);
         }
         count++;
     }
+    
 }
 
 function toggleBookForm(addButton){
